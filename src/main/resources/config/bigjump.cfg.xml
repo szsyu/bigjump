@@ -1,0 +1,23 @@
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<mapping class="com.ect.bigjump.domain.Document" />
+		<mapping class="com.ect.bigjump.domain.DocumentMaster" />
+		<mapping class="com.ect.bigjump.domain.DocumentData" />
+		<mapping class="com.ect.bigjump.domain.DocumentDataLevel" />
+		<mapping class="com.ect.bigjump.domain.DocumentDictionary" />
+		<mapping class="com.ect.bigjump.domain.DocumentProcess" />
+		<mapping class="com.ect.bigjump.domain.DocumentReply" />
+		<mapping class="com.ect.bigjump.domain.DocAssigneeCandidates" />
+		<mapping class="com.ect.bigjump.domain.DocDataInterface" />
+		<mapping class="com.ect.bigjump.domain.DocDataImpException" />
+		<mapping class="com.ect.bigjump.domain.ProcessVariable" />
+		<mapping class="com.ect.bigjump.domain.LookupType" />
+		<mapping class="com.ect.bigjump.domain.LookupValue" />
+		<mapping class="com.ect.bigjump.domain.Role" />
+		<mapping class="com.ect.bigjump.domain.User" />
+		<mapping class="com.ect.bigjump.domain.Organization" />
+		<mapping class="com.ect.bigjump.domain.OrganizationManager" />
+	</session-factory>
+</hibernate-configuration>

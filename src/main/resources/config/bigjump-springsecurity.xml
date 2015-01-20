@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+
+    <!--use-expressions="true" 的意思是开启表达式 access-denied-page的意思是，当验证权限失败后会跳转到的页面 -->
+    <security:http auto-config="true" use-expressions="true" access-denied-page="/Common/accessDeny">
+
+        <!-- 对登录页面,以及Common下的,所有的用户都可以访问 -->
+        <security:intercept-url pattern="/Login/*" access="permitAll"/>
+        <security:intercept-url pattern="/Common/*" access="permitAll"/>
+        <!--  Task 路径下的需登录验证都可以访问 -->
+        <security:intercept-url pattern="/Task/*" access="isAuthenticated()"/>
+       <!-- <security:intercept-url pattern="/Task/*" access="permitAll"/>-->
+        <!--  相关Setup定义的需有ADMIN的角色才可以访问 -->
+        <security:intercept-url pattern="/Document/*" access="hasRole('ADMIN')"/>
+        <security:intercept-url pattern="/User/*" access="hasRole('ADMIN')"/>
+        <security:intercept-url pattern="/Role/*" access="hasRole('ADMIN')"/>
+        <security:intercept-url pattern="/Lookup/*" access="hasRole('ADMIN')"/>
+<!--        <security:intercept-url pattern="/Organization/*" access="hasRole('ADMIN')"/>-->
+        <security:intercept-url pattern="/Organization/*" access="permitAll"/>
+        <!-- 对所有的资源，都必须要有COMM权限 才可以访问 -->
+       <!-- <security:intercept-url pattern="/*" access="hasAnyAuthority"/>-->
+        <!-- 配置登录页面为login.jsp ，登录成功默认跳转到index.jsp，登录失败返回login.jsp并携带参数error=true -->
+        <security:form-login login-page="/Login/login" default-target-url="/Task/showMyTaskList"
+                             authentication-failure-url="/Login/login?error=true"/>
+        <!-- 退出配置 -->
+        <security:logout invalidate-session="true" logout-success-url="/Login/login" logout-url="/j_spring_security_logout"/>
+        <security:remember-me />
+    </security:http>
+
+    <!-- 配置一个认证管理器 -->
+    <security:authentication-manager erase-credentials="false">
+        <!-- 使用自定义的UserDetailService  -->
+        <security:authentication-provider user-service-ref="customUserDetailsService">
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+</beans>
